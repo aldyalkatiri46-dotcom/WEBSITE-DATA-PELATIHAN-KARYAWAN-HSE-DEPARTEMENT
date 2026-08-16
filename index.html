@@ -9,39 +9,50 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            /* Tema Warna Baru: Nuansa HSE Pertambangan / Industri (Industrial Safety Gold & Charcoal) */
+            --hse-primary: #f39c12;       /* Safety Yellow */
+            --hse-secondary: #2c3e50;     /* Charcoal Industrial Dark */
+            --hse-accent: #27ae60;        /* Safety Green / Eco */
+            --hse-dark-bg: #12181f;       /* Deep Mine Dark */
+            --hse-card-light: rgba(255, 255, 255, 0.98);
+            --hse-card-dark: rgba(22, 28, 36, 0.95);
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* Mode Siang */
+        /* Mode Siang - Nuansa Profesional Pertambangan Bersih */
         body[data-bs-theme="light"] {
-            background-color: #f4f4f4;
-            background-image: linear-gradient(rgba(245, 247, 250, 0.9), rgba(245, 247, 250, 0.9)), url('https://images.unsplash.com/photo-1581092160607-ee22531ce71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-color: #eef2f5;
+            background-image: linear-gradient(rgba(238, 242, 245, 0.92), rgba(238, 242, 245, 0.92)), url('https://images.unsplash.com/photo-1581092160607-ee22531ce71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-attachment: fixed;
         }
         body[data-bs-theme="light"] .card {
-            background: rgba(255, 255, 255, 0.97);
-            color: #212529;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: var(--hse-card-light);
+            color: #2c3e50;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
+            border: 1px solid rgba(243, 156, 18, 0.2);
         }
 
-        /* Mode Malam */
+        /* Mode Malam - Nuansa Site Tambang / Shift Malam */
         body[data-bs-theme="dark"] {
-            background-color: #121212;
-            background-image: linear-gradient(rgba(18, 18, 18, 0.92), rgba(18, 18, 18, 0.92)), url('https://images.unsplash.com/photo-1581092160607-ee22531ce71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-color: var(--hse-dark-bg);
+            background-image: linear-gradient(rgba(18, 24, 31, 0.95), rgba(18, 24, 31, 0.95)), url('https://images.unsplash.com/photo-1581092160607-ee22531ce71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-attachment: fixed;
         }
         body[data-bs-theme="dark"] .card {
-            background: rgba(30, 30, 30, 0.95);
-            color: #f8f9fa;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid #444;
+            background: var(--hse-card-dark);
+            color: #ecf0f1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(243, 156, 18, 0.3);
         }
 
-        /* Animasi Smooth untuk Perpindahan Menu */
+        /* Animasi Transisi Menu */
         .step-section { 
             display: none; 
             opacity: 0;
@@ -54,183 +65,275 @@
             transform: translateY(0);
         }
 
-        .text-primary-custom { color: #d68910 !important; }
-        .btn-primary-custom { background-color: #f39c12; border: none; font-weight: bold; color: #000; transition: all 0.3s; }
-        .btn-primary-custom:hover { background-color: #d68910; color: #fff; transform: translateY(-2px); }
-        
+        .text-hse-gold { color: var(--hse-primary) !important; }
+        .btn-hse-gold { 
+            background-color: var(--hse-primary); 
+            border: none; 
+            font-weight: 700; 
+            color: #111; 
+            transition: all 0.3s; 
+        }
+        .btn-hse-gold:hover { 
+            background-color: #d68910; 
+            color: #fff; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        /* Styling Header Tabel HSE yang Elegan */
+        .table-hse thead th {
+            background-color: var(--hse-secondary);
+            color: #f39c12;
+            border-color: #34495e;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 12px 10px;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(243, 156, 18, 0.08);
+        }
+
+        /* Badge Kategori Kustom */
+        .badge-kategori {
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
         .theme-switch-container {
             position: fixed;
             bottom: 25px;
             right: 25px;
             z-index: 1000;
         }
+
+        /* Border Kartu Indikator HSE */
+        .card-header-hse {
+            border-left: 5px solid var(--hse-primary);
+            background: transparent;
+        }
     </style>
 </head>
 <body>
 
 <div class="container my-4">
-    <div class="text-center mb-4">
-        <h2 class="fw-bold"><i class="fa-solid fa-helmet-safety text-primary-custom me-2"></i>Sistem Pelatihan K3 Safety</h2>
-        <p class="text-muted">PT Ruby Internasional Mining - Manajemen Kompetensi & Keselamatan Kerja</p>
+    <!-- HEADER UTAMA DENGAN NUANSA HSE SAFETY -->
+    <div class="card p-4 mb-4 border-0 shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="d-flex align-items-center">
+                    <div class="fs-1 text-hse-gold me-3 p-3 rounded bg-warning bg-opacity-10">
+                        <i class="fa-solid fa-helmet-safety"></i>
+                    </div>
+                    <div>
+                        <span class="badge bg-warning text-dark mb-1 fw-bold"><i class="fa-solid fa-shield-halved me-1"></i> HSE DIVISION COMPLIANCE</span>
+                        <h2 class="fw-bold mb-1">Sistem Pelatihan K3 Safety</h2>
+                        <p class="text-muted mb-0">PT Ruby Internasional Mining - Manajemen Kompetensi & Keselamatan Kerja Tambang</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <div class="p-2 border rounded d-inline-block text-start bg-body-secondary">
+                    <small class="d-block text-muted"><i class="fa-solid fa-circle-dot text-success me-1"></i> Status Database:</small>
+                    <span class="fw-bold text-success small"><i class="fa-solid fa-cloud-arrow-up me-1"></i> Terhubung (Firebase Real-time)</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- STEP 1: PILIH KATEGORI -->
     <div id="stepCategory" class="card p-4 mb-4 step-section active">
-        <h4 class="mb-3 border-bottom pb-2"><i class="fa-solid fa-filter text-primary-custom me-2"></i>Pilih Kategori Karyawan</h4>
-        <p class="text-muted">Silakan pilih kategori karyawan sebelum mengisi form pelatihan.</p>
-        <div class="row g-3 mt-2">
-            <div class="col-md-4"><button class="btn btn-outline-warning w-100 py-3 fw-bold shadow-sm" onclick="selectCategory('Karyawan Workshop 36')"><i class="fa-solid fa-wrench d-block mb-1 fs-4"></i>Karyawan Workshop 36</button></div>
-            <div class="col-md-4"><button class="btn btn-outline-success w-100 py-3 fw-bold shadow-sm" onclick="selectCategory('Karyawan Baru')"><i class="fa-solid fa-user-plus d-block mb-1 fs-4"></i>Karyawan Baru</button></div>
-            <div class="col-md-4"><button class="btn btn-outline-primary w-100 py-3 fw-bold shadow-sm" onclick="selectCategory('Karyawan Mutasi')"><i class="fa-solid fa-arrows-split-up-and-left d-block mb-1 fs-4"></i>Karyawan Mutasi</button></div>
+        <div class="card-header-hse ps-3 mb-4">
+            <h4 class="mb-0 fw-bold"><i class="fa-solid fa-filter text-hse-gold me-2"></i>Pilih Kategori Karyawan</h4>
+            <p class="text-muted small mb-0">Tentukan klasifikasi penempatan personel untuk modul pelatihan K3.</p>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <button class="btn btn-outline-warning w-100 py-4 fw-bold shadow-sm d-flex flex-column align-items-center justify-content-center" onclick="selectCategory('Karyawan Workshop 36')">
+                    <i class="fa-solid fa-wrench fs-2 mb-2 text-warning"></i>
+                    <span>Karyawan Workshop 36</span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-outline-success w-100 py-4 fw-bold shadow-sm d-flex flex-column align-items-center justify-content-center" onclick="selectCategory('Karyawan Baru')">
+                    <i class="fa-solid fa-user-plus fs-2 mb-2 text-success"></i>
+                    <span>Karyawan Baru (Induksi)</span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-outline-primary w-100 py-4 fw-bold shadow-sm d-flex flex-column align-items-center justify-content-center" onclick="selectCategory('Karyawan Mutasi')">
+                    <i class="fa-solid fa-arrows-split-up-and-left fs-2 mb-2 text-primary"></i>
+                    <span>Karyawan Mutasi / Rotasi</span>
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- STEP 2: FORM INPUT -->
     <div id="stepForm" class="card p-4 mb-4 step-section">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0"><i class="fa-solid fa-pen-to-square text-primary-custom me-2"></i>Input Pelatihan (<span id="selectedCategoryBadge" class="text-warning"></span>)</h4>
-            <button class="btn btn-sm btn-outline-secondary" onclick="backToCategory()"><i class="fa-solid fa-arrow-left me-1"></i> Ganti Kategori</button>
+        <div class="d-flex justify-content-between align-items-center mb-3 card-header-hse ps-3">
+            <div>
+                <h4 class="mb-0 fw-bold"><i class="fa-solid fa-pen-to-square text-hse-gold me-2"></i>Form Input Pelatihan K3</h4>
+                <p class="text-muted small mb-0">Kategori Aktif: <span id="selectedCategoryBadge" class="badge bg-warning text-dark"></span></p>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary px-3" onclick="backToCategory()"><i class="fa-solid fa-arrow-left me-1"></i> Ganti Kategori</button>
         </div>
-        <hr>
+        <hr class="text-muted">
+        
         <form id="trainingForm">
             <!-- Bagian 1: Data Karyawan -->
-            <h6 class="text-uppercase text-muted fw-bold mb-3"><i class="fa-solid fa-user-tie me-1"></i> 1. Informasi Karyawan</h6>
-            <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">ID Karyawan</label>
-                    <input type="text" class="form-control" id="empId" required placeholder="Masukkan ID">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">Nama Karyawan</label>
-                    <input type="text" class="form-control" id="empName" required placeholder="Nama Lengkap">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">Departemen</label>
-                    <input type="text" class="form-control" id="empDept" required placeholder="Departemen">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">Jabatan</label>
-                    <input type="text" class="form-control" id="empPosition" required placeholder="Jabatan">
+            <div class="bg-body-secondary p-3 rounded mb-4 border">
+                <h6 class="text-uppercase text-hse-gold fw-bold mb-3"><i class="fa-solid fa-user-tie me-2"></i> 1. Informasi Personel / Karyawan</h6>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold small">ID Karyawan</label>
+                        <input type="text" class="form-control" id="empId" required placeholder="Contoh: RIM-0042">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold small">Nama Karyawan</label>
+                        <input type="text" class="form-control" id="empName" required placeholder="Nama Lengkap & Gelar">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold small">Departemen</label>
+                        <input type="text" class="form-control" id="empDept" required placeholder="Contoh: Plant / Mining Ops">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold small">Jabatan</label>
+                        <input type="text" class="form-control" id="empPosition" required placeholder="Contoh: Mekanik Senior">
+                    </div>
                 </div>
             </div>
 
             <!-- Bagian 2: Detail Pelatihan -->
-            <h6 class="text-uppercase text-muted fw-bold mb-3"><i class="fa-solid fa-chalkboard-user me-1"></i> 2. Detail Pelatihan</h6>
-            <div class="row g-3 mb-4">
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Nama Pelatihan</label>
-                    <input type="text" class="form-control" id="pelName" required placeholder="Topik Pelatihan">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Tanggal Pelatihan</label>
-                    <input type="date" class="form-control" id="pelDate" required>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Jenis Pelatihan</label>
-                    <select class="form-select" id="pelType" required>
-                        <option value="" disabled selected>-- Pilih Jenis Pelatihan --</option>
-                        <option value="Pelatihan di Kelas">Pelatihan di Kelas</option>
-                        <option value="Simulasi">Simulasi</option>
-                        <option value="Penjelasan di Lapangan">Penjelasan di Lapangan</option>
-                        <option value="Pelatihan External">Pelatihan External</option>
-                    </select>
+            <div class="bg-body-secondary p-3 rounded mb-4 border">
+                <h6 class="text-uppercase text-hse-gold fw-bold mb-3"><i class="fa-solid fa-chalkboard-user me-2"></i> 2. Detail Modul Pelatihan K3</h6>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold small">Nama Pelatihan / Topik Safety</label>
+                        <input type="text" class="form-control" id="pelName" required placeholder="Contoh: Defensive Driving / Lockout Tagout">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold small">Tanggal Pelatihan</label>
+                        <input type="date" class="form-control" id="pelDate" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold small">Jenis Pelatihan</label>
+                        <select class="form-select" id="pelType" required>
+                            <option value="" disabled selected>-- Pilih Jenis Pelatihan --</option>
+                            <option value="Pelatihan di Kelas">Pelatihan di Kelas (Classroom)</option>
+                            <option value="Simulasi">Simulasi Kedaruratan</option>
+                            <option value="Penjelasan di Lapangan">Penjelasan di Lapangan (Tailgate Meeting)</option>
+                            <option value="Pelatihan External">Pelatihan External Sertifikasi</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <!-- Bagian 3: Evaluasi & Hasil -->
-            <h6 class="text-uppercase text-muted fw-bold mb-3"><i class="fa-solid fa-clipboard-check me-1"></i> 3. Evaluasi & Penilaian</h6>
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">Metode Evaluasi</label>
-                    <select class="form-select" id="evalMethod" required onchange="checkEvalMethod()">
-                        <option value="" disabled selected>-- Pilih Metode --</option>
-                        <option value="Tertulis">Tertulis</option>
-                        <option value="Lisan">Lisan</option>
-                        <option value="Praktek">Praktek</option>
-                        <option value="Lain-lain">Lain-lain</option>
-                    </select>
-                </div>
-                <div class="col-md-3" id="otherMethodContainer" style="display: none;">
-                    <label class="form-label fw-bold">Sebutkan Metode Lain</label>
-                    <input type="text" class="form-control" id="evalMethodOther" placeholder="Tuliskan metode...">
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label fw-bold">Nilai 1</label>
-                    <input type="number" class="form-control" id="score1" required placeholder="0-100">
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label fw-bold">Nilai 2 (Remedial)</label>
-                    <input type="number" class="form-control" id="score2" placeholder="Opsional">
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label fw-bold">Hasil Evaluasi</label>
-                    <input type="text" class="form-control" id="result" required placeholder="Lulus / Tidak">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">Poin Pelatihan</label>
-                    <input type="text" class="form-control" id="points" required placeholder="Poin / SKP">
+            <div class="bg-body-secondary p-3 rounded mb-3 border">
+                <h6 class="text-uppercase text-hse-gold fw-bold mb-3"><i class="fa-solid fa-clipboard-check me-2"></i> 3. Evaluasi Kompetensi & Hasil</h6>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold small">Metode Evaluasi</label>
+                        <select class="form-select" id="evalMethod" required onchange="checkEvalMethod()">
+                            <option value="" disabled selected>-- Pilih Metode --</option>
+                            <option value="Tertulis">Ujian Tertulis</option>
+                            <option value="Lisan">Wawancara Lisan</option>
+                            <option value="Praktek">Uji Praktek Lapangan</option>
+                            <option value="Lain-lain">Lain-lain</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" id="otherMethodContainer" style="display: none;">
+                        <label class="form-label fw-semibold small">Sebutkan Metode Lain</label>
+                        <input type="text" class="form-control" id="evalMethodOther" placeholder="Tuliskan metode...">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold small">Nilai 1 (Ujian)</label>
+                        <input type="number" class="form-control text-center fw-bold" id="score1" required placeholder="0-100">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold small">Nilai 2 (Remedial)</label>
+                        <input type="number" class="form-control text-center fw-bold" id="score2" placeholder="Opsional">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold small">Hasil Evaluasi</label>
+                        <input type="text" class="form-control text-center fw-bold" id="result" required placeholder="Lulus / Tidak">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold small">Poin / SKP Kompetensi</label>
+                        <input type="text" class="form-control text-center" id="points" required placeholder="Contoh: 10 Poin">
+                    </div>
                 </div>
             </div>
 
             <div class="mt-4 text-end">
-                <button type="submit" class="btn btn-primary-custom px-4 shadow-sm"><i class="fa-solid fa-plus me-1"></i> Simpan & Masukkan Data</button>
+                <button type="submit" class="btn btn-hse-gold px-5 py-2 shadow-sm"><i class="fa-solid fa-cloud-arrow-up me-2"></i> Simpan Data ke Firebase</button>
             </div>
         </form>
     </div>
 
-    <!-- TABLE & DOWNLOAD -->
-    <div class="card p-4">
-        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-            <h4 class="mb-0"><i class="fa-solid fa-table text-primary-custom me-2"></i>Daftar Data Pelatihan</h4>
-            <div>
-                <button class="btn btn-success btn-sm me-2 fw-bold shadow-sm" onclick="downloadExcel()"><i class="fa-solid fa-file-excel me-1"></i> Excel (Tabel Rapi)</button>
-                <button class="btn btn-danger btn-sm fw-bold shadow-sm" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf me-1"></i> PDF</button>
+    <!-- TATA LETAK DAFTAR DATA PELATIHAN (DIATUR RAPI & ELEGAN) -->
+    <div class="card p-4 shadow-sm border-0">
+        <!-- Header Bagian Tabel & Aksi Ekspor -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3 pb-3 border-bottom">
+            <div class="card-header-hse ps-3">
+                <h4 class="mb-0 fw-bold"><i class="fa-solid fa-table-list text-hse-gold me-2"></i>Daftar Rekapitulasi Data Pelatihan K3</h4>
+                <p class="text-muted small mb-0">Pemantauan data keselamatan kerja secara terpusat dan transparan.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-sm fw-bold shadow-sm px-3 py-2" onclick="downloadExcel()"><i class="fa-solid fa-file-excel me-2"></i> Unduh Excel (Tabel Rapi)</button>
+                <button class="btn btn-danger btn-sm fw-bold shadow-sm px-3 py-2" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf me-2"></i> Unduh Laporan PDF</button>
             </div>
         </div>
 
-        <!-- FILTER PENCARIAN DATA -->
-        <div class="row g-2 mb-3">
-            <div class="col-md-6">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text bg-secondary text-white"><i class="fa-solid fa-search"></i></span>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Cari berdasarkan nama, ID, atau topik pelatihan..." onkeyup="renderTable()">
+        <!-- PANEL PENCARIAN & FILTER YANG RAPI -->
+        <div class="row g-3 mb-4 bg-body-secondary p-3 rounded border">
+            <div class="col-md-7">
+                <label class="form-label small fw-semibold text-muted mb-1"><i class="fa-solid fa-magnifying-glass me-1"></i> Pencarian Cepat Data</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-warning text-dark border-0"><i class="fa-solid fa-search"></i></span>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Cari berdasarkan nama karyawan, ID, atau topik pelatihan..." onkeyup="renderTable()">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text bg-secondary text-white"><i class="fa-solid fa-filter"></i></span>
-                    <select class="form-select" id="categoryFilter" onchange="renderTable()">
-                        <option value="">Semua Kategori Karyawan</option>
-                        <option value="Karyawan Workshop 36">Karyawan Workshop 36</option>
-                        <option value="Karyawan Baru">Karyawan Baru</option>
-                        <option value="Karyawan Mutasi">Karyawan Mutasi</option>
-                    </select>
-                </div>
+            <div class="col-md-5">
+                <label class="form-label small fw-semibold text-muted mb-1"><i class="fa-solid fa-filter me-1"></i> Filter Berdasarkan Kategori</label>
+                <select class="form-select" id="categoryFilter" onchange="renderTable()">
+                    <option value="">-- Tampilkan Semua Kategori --</option>
+                    <option value="Karyawan Workshop 36">Karyawan Workshop 36</option>
+                    <option value="Karyawan Baru">Karyawan Baru</option>
+                    <option value="Karyawan Mutasi">Karyawan Mutasi</option>
+                </select>
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped align-middle" id="trainingTable">
-                <thead class="table-dark text-center">
+        <!-- TABEL DATA TERFORMAT RAPI -->
+        <div class="table-responsive rounded shadow-sm border">
+            <table class="table table-hover table-bordered align-middle mb-0 table-hse" id="trainingTable">
+                <thead class="text-center">
                     <tr>
-                        <th>No</th>
-                        <th>Kategori</th>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Pelatihan</th>
-                        <th>Tanggal Pelatihan</th>
-                        <th>Jenis Pelatihan</th>
-                        <th>Metode Evaluasi</th>
-                        <th>Nilai 1</th>
-                        <th>Nilai 2</th>
-                        <th>Hasil</th>
-                        <th>Poin</th>
-                        <th>Aksi</th>
+                        <th width="5%">No</th>
+                        <th width="14%">Kategori</th>
+                        <th width="8%">ID</th>
+                        <th width="14%">Nama Personel</th>
+                        <th width="14%">Topik Pelatihan</th>
+                        <th width="10%">Tanggal</th>
+                        <th width="10%">Jenis</th>
+                        <th width="8%">Metode</th>
+                        <th width="5%">N1</th>
+                        <th width="5%">N2</th>
+                        <th width="6%">Hasil</th>
+                        <th width="5%">Poin</th>
+                        <th width="6%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
                     <tr id="emptyRow">
-                        <td colspan="13" class="text-center text-muted py-4">Belum ada data pelatihan yang ditambahkan.</td>
+                        <td colspan="13" class="text-center text-muted py-5">
+                            <div class="spinner-border text-warning mb-2" role="status"></div>
+                            <p class="mb-0">Memuat data rekam jejak keselamatan kerja dari Firebase...</p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -240,61 +343,58 @@
 
 <!-- SAKLAR LAMPU (TOGGLE MODE SIANG / MALAM) -->
 <div class="theme-switch-container">
-    <button class="btn btn-dark rounded-circle p-3 shadow-lg" id="themeToggleBtn" onclick="toggleTheme()" title="Saklar Mode Siang/Malam">
-        <i class="fa-solid fa-lightbulb fs-4 text-warning" id="themeIcon"></i>
+    <button class="btn btn-warning rounded-circle p-3 shadow-lg border-2 border-dark" id="themeToggleBtn" onclick="toggleTheme()" title="Ganti Tema Siang/Malam">
+        <i class="fa-solid fa-lightbulb fs-4 text-dark" id="themeIcon"></i>
     </button>
 </div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Script Dependencies (SheetJS & SheetJS Style / SheetJS Full) -->
+<!-- Script Dependencies (SheetJS & jsPDF) -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
-<script>
+<!-- Firebase SDK & Controller Logic -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    // --- KONFIGURASI FIREBASE ANDA ---
+    const firebaseConfig = {
+        apiKey: "API_KEY_ANDA",
+        authDomain: "PROJECT_ID.firebaseapp.com",
+        databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+        projectId: "PROJECT_ID",
+        storageBucket: "PROJECT_ID.appspot.com",
+        messagingSenderId: "MESSAGING_SENDER_ID",
+        appId: "APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
     let currentCategory = "";
-    let trainingData = [];
+    let trainingDataMap = {};
+    let trainingDataArray = [];
 
-    // Saklar Mode Siang / Malam
-    function toggleTheme() {
-        const htmlElement = document.documentElement;
-        const currentTheme = htmlElement.getAttribute("data-bs-theme");
-        const themeIcon = document.getElementById("themeIcon");
-        const toggleBtn = document.getElementById("themeToggleBtn");
-
-        if (currentTheme === "light") {
-            htmlElement.setAttribute("data-bs-theme", "dark");
-            themeIcon.classList.remove("fa-lightbulb", "text-warning");
-            themeIcon.classList.add("fa-moon", "text-info");
-            toggleBtn.classList.remove("btn-dark");
-            toggleBtn.classList.add("btn-light");
-        } else {
-            htmlElement.setAttribute("data-bs-theme", "light");
-            themeIcon.classList.remove("fa-moon", "text-info");
-            themeIcon.classList.add("fa-lightbulb", "text-warning");
-            toggleBtn.classList.remove("btn-light");
-            toggleBtn.classList.add("btn-dark");
-        }
-    }
-
-    function selectCategory(cat) {
+    window.selectCategory = function(cat) {
         currentCategory = cat;
         document.getElementById('selectedCategoryBadge').innerText = cat;
         document.getElementById('stepCategory').classList.remove('active');
         setTimeout(() => {
             document.getElementById('stepForm').classList.add('active');
-        }, 100);
+        }, 150);
     }
 
-    function backToCategory() {
+    window.backToCategory = function() {
         document.getElementById('stepForm').classList.remove('active');
         setTimeout(() => {
             document.getElementById('stepCategory').classList.add('active');
-        }, 100);
+        }, 150);
     }
 
-    function checkEvalMethod() {
+    window.checkEvalMethod = function() {
         const methodSelect = document.getElementById('evalMethod').value;
         const otherContainer = document.getElementById('otherMethodContainer');
         if (methodSelect === 'Lain-lain') {
@@ -307,6 +407,23 @@
         }
     }
 
+    // Ambil Data Real-time dari Firebase
+    const trainingRef = ref(db, 'pelatihan_k3');
+    onValue(trainingRef, (snapshot) => {
+        const data = snapshot.val();
+        trainingDataMap = data || {};
+        trainingDataArray = [];
+
+        for (let key in trainingDataMap) {
+            trainingDataArray.push({
+                firebaseKey: key,
+                ...trainingDataMap[key]
+            });
+        }
+        renderTable();
+    });
+
+    // Simpan Data Baru
     document.getElementById('trainingForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -316,7 +433,7 @@
             if (otherVal) evalMethodVal = `Lain-lain: ${otherVal}`;
         }
 
-        trainingData.push({
+        const newData = {
             category: currentCategory,
             id: document.getElementById('empId').value,
             name: document.getElementById('empName').value,
@@ -330,21 +447,28 @@
             score2: document.getElementById('score2').value || '-',
             result: document.getElementById('result').value,
             points: document.getElementById('points').value
-        });
+        };
 
-        renderTable();
-        this.reset();
-        document.getElementById('otherMethodContainer').style.display = 'none';
+        push(trainingRef, newData)
+            .then(() => {
+                alert("Data rekam pelatihan K3 berhasil disimpan ke Firebase!");
+                document.getElementById('trainingForm').reset();
+                document.getElementById('otherMethodContainer').style.display = 'none';
+            })
+            .catch((error) => {
+                alert("Gagal menyimpan data: " + error.message);
+            });
     });
 
-    function renderTable() {
+    // Render Tabel Profesional
+    window.renderTable = function() {
         const tbody = document.getElementById('tableBody');
         const searchKeyword = document.getElementById('searchInput').value.toLowerCase();
         const selectedFilterCat = document.getElementById('categoryFilter').value;
 
         tbody.innerHTML = "";
 
-        const filteredData = trainingData.filter(item => {
+        const filteredData = trainingDataArray.filter(item => {
             const matchesSearch = item.name.toLowerCase().includes(searchKeyword) ||
                                   item.id.toLowerCase().includes(searchKeyword) ||
                                   item.pelName.toLowerCase().includes(searchKeyword);
@@ -353,28 +477,34 @@
         });
 
         if (filteredData.length === 0) {
-            tbody.innerHTML = `<tr id="emptyRow"><td colspan="13" class="text-center text-muted py-4">Tidak ada data pelatihan yang ditemukan.</td></tr>`;
+            tbody.innerHTML = `<tr id="emptyRow"><td colspan="13" class="text-center text-muted py-5"><i class="fa-solid fa-folder-open fs-3 d-block mb-2"></i>Tidak ada data pelatihan K3 yang ditemukan.</td></tr>`;
             return;
         }
 
         filteredData.forEach((item, index) => {
-            const originalIndex = trainingData.indexOf(item);
+            let badgeColor = "bg-secondary";
+            if(item.category === "Karyawan Workshop 36") badgeColor = "bg-warning text-dark";
+            else if(item.category === "Karyawan Baru") badgeColor = "bg-success";
+            else if(item.category === "Karyawan Mutasi") badgeColor = "bg-primary";
+
+            let resultBadge = item.result.toLowerCase().includes('lulus') ? 'bg-success text-white' : 'bg-danger text-white';
+
             const row = `<tr>
-                <td class="text-center">${index + 1}</td>
-                <td><span class="badge bg-secondary">${item.category}</span></td>
-                <td>${item.id}</td>
+                <td class="text-center fw-bold">${index + 1}</td>
+                <td><span class="badge ${badgeColor} badge-kategori">${item.category}</span></td>
+                <td class="text-center font-monospace">${item.id}</td>
                 <td class="fw-bold">${item.name}</td>
-                <td>${item.pelName}</td>
-                <td class="text-center">${item.pelDate}</td>
-                <td>${item.pelType}</td>
-                <td>${item.evalMethod}</td>
-                <td class="text-center">${item.score1}</td>
-                <td class="text-center">${item.score2}</td>
-                <td>${item.result}</td>
-                <td class="text-center">${item.points}</td>
+                <td><i class="fa-solid fa-shield-cat text-warning me-1"></i>${item.pelName}</td>
+                <td class="text-center small">${item.pelDate}</td>
+                <td class="small">${item.pelType}</td>
+                <td class="small">${item.evalMethod}</td>
+                <td class="text-center fw-bold">${item.score1}</td>
+                <td class="text-center text-muted">${item.score2}</td>
+                <td class="text-center"><span class="badge ${resultBadge}">${item.result}</span></td>
+                <td class="text-center fw-bold text-success">${item.points}</td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteData(${originalIndex})" title="Hapus Data">
-                        <i class="fa-solid fa-trash"></i>
+                    <button class="btn btn-sm btn-outline-danger shadow-sm" onclick="deleteData('${item.firebaseKey}')" title="Hapus Data">
+                        <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </td>
             </tr>`;
@@ -382,65 +512,63 @@
         });
     }
 
-    function deleteData(index) {
-        if(confirm("Apakah Anda yakin ingin menghapus data ini?")) {
-            trainingData.splice(index, 1);
-            renderTable();
+    window.deleteData = function(firebaseKey) {
+        if(confirm("Apakah Anda yakin ingin menghapus data keselamatan ini dari sistem?")) {
+            const itemRef = ref(db, 'pelatihan_k3/' + firebaseKey);
+            remove(itemRef).catch((error) => {
+                alert("Gagal menghapus data: " + error.message);
+            });
         }
     }
 
-    // Download Excel dengan Tabel Terformat, Warna Header Profesional, Border Grid Lengkap, & Lebar Kolom Otomatis
-    function downloadExcel() {
-        if (trainingData.length === 0) {
+    // Ekspor Excel Terformat Rapi
+    window.downloadExcel = function() {
+        if (trainingDataArray.length === 0) {
             alert("Tidak ada data untuk diunduh!");
             return;
         }
 
-        const exportData = trainingData.map((item, idx) => ({
+        const exportData = trainingDataArray.map((item, idx) => ({
             "No": idx + 1,
             "Kategori Karyawan": item.category,
             "ID Karyawan": item.id,
             "Nama Karyawan": item.name,
-            "Nama Pelatihan": item.pelName,
+            "Departemen": item.dept,
+            "Jabatan": item.position,
+            "Topik Pelatihan K3": item.pelName,
             "Tanggal Pelatihan": item.pelDate,
             "Jenis Pelatihan": item.pelType,
             "Metode Evaluasi": item.evalMethod,
-            "Nilai Ulangan 1": item.score1,
-            "Nilai Ulangan 2 (Remedial)": item.score2,
+            "Nilai Ujian 1": item.score1,
+            "Nilai Remedial 2": item.score2,
             "Hasil Evaluasi": item.result,
-            "Poin Pelatihan": item.points
+            "Poin Kompetensi": item.points
         }));
 
         const worksheet = XLSX.utils.json_to_sheet(exportData);
-        
-        // Mengatur Style Border & Header Tabel secara native pada SheetJS
         const range = XLSX.utils.decode_range(worksheet['!ref']);
         
         const borderStyle = {
-            top: { style: "thin", color: { rgb: "000000" } },
-            bottom: { style: "thin", color: { rgb: "000000" } },
-            left: { style: "thin", color: { rgb: "000000" } },
-            right: { style: "thin", color: { rgb: "000000" } }
+            top: { style: "thin", color: { rgb: "bdc3c7" } },
+            bottom: { style: "thin", color: { rgb: "bdc3c7" } },
+            left: { style: "thin", color: { rgb: "bdc3c7" } },
+            right: { style: "thin", color: { rgb: "bdc3c7" } }
         };
 
-        // Otomatisasi Lebar Kolom agar tidak ada teks terpotong
         const colWidths = [];
         for (let C = range.s.c; C <= range.e.c; ++C) {
-            let maxLen = 10;
+            let maxLen = 12;
             for (let R = range.s.r; R <= range.e.r; ++R) {
                 const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
                 if (worksheet[cellAddress] && worksheet[cellAddress].v) {
                     const valStr = String(worksheet[cellAddress].v);
-                    if (valStr.length > maxLen) {
-                        maxLen = valStr.length;
-                    }
+                    if (valStr.length > maxLen) maxLen = valStr.length;
                 }
             }
-            colWidths.push({ wch: maxLen + 4 });
+            colWidths.push({ wch: maxLen + 5 });
         }
         worksheet['!cols'] = colWidths;
 
-        // Terapkan border dan format header
         for (let R = range.s.r; R <= range.e.r; ++R) {
             for (let C = range.s.c; C <= range.e.c; ++C) {
                 const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
@@ -449,14 +577,12 @@
                 if (!worksheet[cellAddress].s) worksheet[cellAddress].s = {};
                 worksheet[cellAddress].s.border = borderStyle;
                 
-                // Styling Baris Header (Baris Pertama)
                 if (R === 0) {
-                    worksheet[cellAddress].s.font = { bold: true, color: { rgb: "FFFFFF" } };
-                    worksheet[cellAddress].s.fill = { fgColor: { rgb: "2C3E50" } }; // Warna Gelap Profesional K3
+                    worksheet[cellAddress].s.font = { bold: true, color: { rgb: "FFFFFF" }, sz: 11 };
+                    worksheet[cellAddress].s.fill = { fgColor: { rgb: "2C3E50" } }; // Warna Charcoal HSE
                     worksheet[cellAddress].s.alignment = { horizontal: "center", vertical: "center" };
                 } else {
-                    // Penjajaran rata tengah untuk kolom angka / tanggal tertentu
-                    if (C === 0 || C === 2 || C === 5 || C === 8 || C === 9) {
+                    if (C === 0 || C === 2 || C === 7 || C === 10 || C === 11 || C === 12) {
                         worksheet[cellAddress].s.alignment = { horizontal: "center" };
                     }
                 }
@@ -464,13 +590,13 @@
         }
 
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Data Pelatihan K3");
-        XLSX.writeFile(workbook, "Data_Pelatihan_PT_Ruby_Mining.xlsx");
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Rekap Pelatihan K3");
+        XLSX.writeFile(workbook, "Rekap_Pelatihan_K3_PT_Ruby_Mining.xlsx");
     }
 
-    // Download PDF
-    function downloadPDF() {
-        if (trainingData.length === 0) {
+    // Ekspor Laporan PDF
+    window.downloadPDF = function() {
+        if (trainingDataArray.length === 0) {
             alert("Tidak ada data untuk diunduh!");
             return;
         }
@@ -479,10 +605,11 @@
         const doc = new jsPDF('l', 'mm', 'a4');
 
         doc.setFontSize(14);
-        doc.text("PT RUBY INTERNASIONAL MINING - LAPORAN PELATIHAN K3", 14, 15);
+        doc.setTextColor(44, 62, 80);
+        doc.text("PT RUBY INTERNASIONAL MINING - LAPORAN K3 SAFETY TRAINING", 14, 15);
 
-        const headers = [["No", "Kategori", "ID", "Nama", "Pelatihan", "Tanggal", "Jenis", "Evaluasi", "Nilai 1", "Nilai 2", "Hasil", "Poin"]];
-        const data = trainingData.map((item, idx) => [
+        const headers = [["No", "Kategori", "ID", "Nama Personel", "Topik Pelatihan", "Tanggal", "Jenis", "Evaluasi", "N1", "N2", "Hasil", "Poin"]];
+        const data = trainingDataArray.map((item, idx) => [
             idx + 1,
             item.category,
             item.id,
@@ -500,13 +627,32 @@
         doc.autoTable({
             head: headers,
             body: data,
-            startY: 20,
+            startY: 22,
             theme: 'grid',
-            styles: { fontSize: 7, cellPadding: 2 },
-            headStyles: { fillColor: [44, 62, 80] }
+            styles: { fontSize: 7, cellPadding: 2.5 },
+            headStyles: { fillColor: [44, 62, 80], textColor: [243, 156, 18], fontStyle: 'bold' }
         });
 
-        doc.save("Data_Pelatihan_PT_Ruby_Mining.pdf");
+        doc.save("Laporan_K3_PT_Ruby_Mining.pdf");
+    }
+</script>
+
+<script>
+    // Saklar Tema Global
+    function toggleTheme() {
+        const htmlElement = document.documentElement;
+        const currentTheme = htmlElement.getAttribute("data-bs-theme");
+        const themeIcon = document.getElementById("themeIcon");
+
+        if (currentTheme === "light") {
+            htmlElement.setAttribute("data-bs-theme", "dark");
+            themeIcon.classList.remove("fa-lightbulb", "text-dark");
+            themeIcon.classList.add("fa-moon", "text-warning");
+        } else {
+            htmlElement.setAttribute("data-bs-theme", "light");
+            themeIcon.classList.remove("fa-moon", "text-warning");
+            themeIcon.classList.add("fa-lightbulb", "text-dark");
+        }
     }
 </script>
 </body>
